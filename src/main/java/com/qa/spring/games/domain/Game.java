@@ -4,9 +4,9 @@ public class Game {
 
     private String name;
     private String genre;
-    private int yearOfRelease;
+    private Integer yearOfRelease;
 
-    public Game(String name, String genre, int yearOfRelease) {
+    public Game(String name, String genre, Integer yearOfRelease) {
         this.name = name;
         this.genre = genre;
         this.yearOfRelease = yearOfRelease;
@@ -32,11 +32,11 @@ public class Game {
         this.genre = genre;
     }
 
-    public int getYearOfRelease() {
+    public Integer getYearOfRelease() {
         return yearOfRelease;
     }
 
-    public void setYearOfRelease(int yearOfRelease) {
+    public void setYearOfRelease(Integer yearOfRelease) {
         this.yearOfRelease = yearOfRelease;
     }
 

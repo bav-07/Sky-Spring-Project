@@ -24,14 +24,16 @@ public class GameController {
     }
 
     @GetMapping("/get/{id}")
-    public String getById(@PathVariable Integer id) {
+    public HttpEntity<Game> getById(@PathVariable Integer id) {
         System.out.println("ID: " + id);
-        return null;
+        Game game = this.games.get(id);
+        return new ResponseEntity<>(game, HttpStatus.OK);
     }
 
     @GetMapping("/getAll")
-    public List<Game> getAll() {
-        return null;
+    public HttpEntity<List<Game>> getAll() {
+        List<Game> gamesList = this.games;
+        return new ResponseEntity<>(gamesList, HttpStatus.OK);
     }
 
     @PostMapping("/create")
@@ -45,26 +47,30 @@ public class GameController {
     // Behind the scenes, using Jackson library to convert JSON into whatever parameter type you would like
     // This works as long as the parameters you pass in match
     @PostMapping("/createMultiple")
-    public List<Game> create(@RequestBody List<Game> newGames) {
+    public HttpEntity<List<Game>> create(@RequestBody List<Game> newGames) {
         System.out.println("RECEIVED: " + newGames);
-        return null;
+        this.games.addAll(newGames);
+        List<Game> createdAll = this.games.subList(this.games.size() - newGames.size(), this.games.size());
+        return new ResponseEntity<>(createdAll, HttpStatus.CREATED);
     }
 
     @PatchMapping("/update/{id}")
-    public Game update(@PathVariable Integer id,
+    public HttpEntity<Game> update(@PathVariable Integer id,
                        @PathParam("name") String name,
                        @PathParam("genre") String genre,
                        @PathParam("yearOfRelease") Integer yearOfRelease) {
-        System.out.println("ID: " + id);
-        System.out.println("Name: " + name);
-        System.out.println("Genre: " + genre);
-        System.out.println("Year of Release: " + yearOfRelease);
-        return null;
+        Game game = this.games.get(id);
+        game.setName(name);
+        game.setGenre(genre);
+        game.setYearOfRelease(yearOfRelease);
+        return new ResponseEntity<>(this.games.get(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/remove/{id}")
-    public Game remove(@PathVariable Integer id) {
-        return null;
+    public HttpEntity<Game> remove(@PathVariable Integer id) {
+        Game toDelete = this.games.get(id);
+        this.games.remove(toDelete);
+        return new ResponseEntity<>(toDelete, HttpStatus.OK);
     }
 
 }
