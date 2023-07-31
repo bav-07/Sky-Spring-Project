@@ -60,9 +60,15 @@ public class GameController {
                        @PathParam("genre") String genre,
                        @PathParam("yearOfRelease") Integer yearOfRelease) {
         Game game = this.games.get(id);
-        game.setName(name);
-        game.setGenre(genre);
-        game.setYearOfRelease(yearOfRelease);
+        if (name != null) {
+            game.setName(name);
+        }
+        if (genre != null) {
+            game.setGenre(genre);
+        }
+        if (yearOfRelease != null) {
+            game.setYearOfRelease(yearOfRelease);
+        }
         return new ResponseEntity<>(this.games.get(id), HttpStatus.OK);
     }
 
