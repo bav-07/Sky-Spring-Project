@@ -17,8 +17,11 @@ import java.util.List;
 @RequestMapping("/game")
 public class GameController {
 
-    @Autowired
     private GameService service;
+
+    public GameController(GameService service) {
+        this.service = service;
+    }
 
     @GetMapping("/get/{id}")
     public HttpEntity<Game> getById(@PathVariable Integer id) {
