@@ -1,6 +1,7 @@
 package com.qa.spring.games.services;
 
 import com.qa.spring.games.domain.Game;
+import com.qa.spring.games.exceptions.GameNotFoundException;
 import com.qa.spring.games.repos.GameRepo;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Sort;
@@ -30,7 +31,7 @@ public class GameServiceDB implements GameService{
 
     @Override
     public Game get(int id) {
-        return this.repo.findById(id).get();
+        return this.repo.findById(id).orElseThrow(() -> new GameNotFoundException());
     }
 
     @Override
@@ -55,7 +56,7 @@ public class GameServiceDB implements GameService{
 
     @Override
     public Game remove(int id) {
-        Game game = this.repo.findById(id).get();
+        Game game = this.get(id);
         this.repo.deleteById(id);
         return game;
     }

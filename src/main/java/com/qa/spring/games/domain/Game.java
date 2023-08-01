@@ -1,6 +1,11 @@
 package com.qa.spring.games.domain;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Game {
@@ -10,8 +15,14 @@ public class Game {
     private Integer id;
 
     @Column(unique = false, nullable = false)
+    @NotBlank
+    @Size(min = 1, max = 200)
     private String name;
+
     private String genre;
+
+    @NotNull
+    @Range(min = 1900, max = 2100) //Uses validation library
     private Integer yearOfRelease;
 
     public Game(String name, String genre, Integer yearOfRelease) {

@@ -7,6 +7,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -55,7 +56,7 @@ public class GameController {
     }
 
     @PostMapping("/create")
-    public HttpEntity<Game> create(@RequestBody Game game) {
+    public HttpEntity<Game> create(@RequestBody @Validated Game game) {
         System.out.println("RECEIVED: " + game);
         return new ResponseEntity<>(service.create(game), HttpStatus.CREATED);
     }
@@ -63,7 +64,7 @@ public class GameController {
     // Behind the scenes, using Jackson library to convert JSON into whatever parameter type you would like
     // This works as long as the parameters you pass in match
     @PostMapping("/createMultiple")
-    public HttpEntity<List<Game>> create(@RequestBody List<Game> newGames) {
+    public HttpEntity<List<Game>> create(@RequestBody @Validated List<Game> newGames) {
         System.out.println("RECEIVED: " + newGames);
         return new ResponseEntity<>(service.create(newGames), HttpStatus.CREATED);
     }
