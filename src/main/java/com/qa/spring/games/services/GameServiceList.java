@@ -1,6 +1,8 @@
 package com.qa.spring.games.services;
 
 import com.qa.spring.games.domain.Game;
+import com.qa.spring.games.repos.GameRepo;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,7 +11,14 @@ import java.util.List;
 @Service
 public class GameServiceList implements GameService {
 
+    private GameRepo repo;
     private List<Game> games = new ArrayList<>();
+
+    public GameServiceList(GameRepo repo, List<Game> games) {
+        this.repo = repo;
+        this.games = games;
+    }
+
 
     @Override
     public Game create(Game game) {
@@ -56,6 +65,32 @@ public class GameServiceList implements GameService {
         if (this.games.get(id) != null) {
             return this.games.remove(id);
         }
+        return null;
+    }
+
+    @Override
+    public List<Game> findByName(String name) {
+        List<Game> found = new ArrayList<>();
+        for (Game g : this.games) {
+            if (g.getName().trim().compareToIgnoreCase(name) == 0) {
+                found.add(g);
+            }
+        }
+        return found;
+    }
+
+    @Override
+    public String findGenreByName(String name) {
+        return null;
+    }
+
+    @Override
+    public List<Game> findByGenre(String genre) {
+        return null;
+    }
+
+    @Override
+    public List<Game> getAllSorted(String parameter) {
         return null;
     }
 

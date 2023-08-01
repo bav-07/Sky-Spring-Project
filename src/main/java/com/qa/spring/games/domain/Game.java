@@ -1,9 +1,6 @@
 package com.qa.spring.games.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Game {
@@ -12,6 +9,7 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(unique = false, nullable = false)
     private String name;
     private String genre;
     private Integer yearOfRelease;
@@ -24,6 +22,14 @@ public class Game {
 
     // REQUIRED TO CREATE A DEFAULT CONSTRUCTOR
     public Game() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -1,6 +1,7 @@
 package com.qa.spring.games.services;
 
 import com.qa.spring.games.domain.Game;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,4 +18,12 @@ public interface GameService {
     Game update(int id, String name, String genre, Integer yearOfRelease);
 
     Game remove(int id);
+
+    List<Game> findByName(String name);
+
+    String findGenreByName(String name);
+
+    List<Game> findByGenre(String genre);
+
+    List<Game> getAllSorted(String parameter);
 }

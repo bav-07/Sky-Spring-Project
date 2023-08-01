@@ -34,6 +34,26 @@ public class GameController {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/getAllSortedBy/{parameter}")
+    public HttpEntity<List<Game>> getAllSortedByName(@PathVariable String parameter) {
+        return new ResponseEntity<>(service.getAllSorted(parameter), HttpStatus.OK);
+    }
+
+    @GetMapping("/findByName/{name}")
+    public HttpEntity<List<Game>> findByName(@PathVariable String name) {
+        return new ResponseEntity<>(service.findByName(name), HttpStatus.OK);
+    }
+
+    @GetMapping("/findByGenre/{genre}")
+    public HttpEntity<List<Game>> findByGenre(@PathVariable String genre) {
+        return new ResponseEntity<>(service.findByGenre(genre), HttpStatus.OK);
+    }
+
+    @GetMapping("/findGenreByName/{name}")
+    public HttpEntity<String> findGenreByName(@PathVariable String name) {
+        return new ResponseEntity<>(service.findGenreByName(name), HttpStatus.OK);
+    }
+
     @PostMapping("/create")
     public HttpEntity<Game> create(@RequestBody Game game) {
         System.out.println("RECEIVED: " + game);
