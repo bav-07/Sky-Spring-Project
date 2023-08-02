@@ -1,5 +1,6 @@
 package com.qa.spring.games.domain;
 
+import com.qa.spring.games.annotations.Genre;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Game {
     @Size(min = 1, max = 200)
     private String name;
 
+    @Genre
     private String genre;
 
     @NotNull
@@ -33,6 +35,13 @@ public class Game {
 
     // REQUIRED TO CREATE A DEFAULT CONSTRUCTOR
     public Game() {
+    }
+
+    public Game(Integer id, String name, String genre, Integer yearOfRelease) {
+        this.id = id;
+        this.name = name;
+        this.genre = genre;
+        this.yearOfRelease = yearOfRelease;
     }
 
     public Integer getId() {
