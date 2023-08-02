@@ -4,6 +4,7 @@ import com.qa.spring.games.annotations.Genre;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,7 +25,7 @@ public class Game {
     private String genre;
 
     @NotNull
-    @Range(min = 1900, max = 2100) //Uses validation library
+    @Range(min = 1900, max = 2100, message = "Year of release must be between 1900 and 2100") //Uses validation library
     private Integer yearOfRelease;
 
     public Game(String name, String genre, Integer yearOfRelease) {

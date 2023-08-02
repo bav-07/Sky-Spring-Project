@@ -1,12 +1,16 @@
 package com.qa.spring.games.services;
 
 import com.qa.spring.games.domain.Game;
+import com.qa.spring.games.exceptions.BadRequestException;
 import com.qa.spring.games.exceptions.GameNotFoundException;
 import com.qa.spring.games.repos.GameRepo;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.client.HttpClientErrorException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @Primary
@@ -40,18 +44,19 @@ public class GameServiceDB implements GameService{
     }
 
     @Override
-    public Game update(int id, String name, String genre, Integer yearOfRelease) {
+    public Game update(int id, String name, String genre, Integer yearOfRelease) throws ConstraintViolationException {
         Game toUpdate = this.get(id);
-        if (name != null) {
-            toUpdate.setName(name);
+
+        if (name != null) toUpdate.setName(name);
+        if (genre != null) toUpdate.setGenre(genre);
+        if (yearOfRelease != null) toUpdate.setYearOfRelease(yearOfRelease);
+
+        try {
+            this.repo.save(toUpdate);
+        } catch (Exception e) {
+            throw new BadRequestException(e.getMessage());
         }
-        if (genre != null) {
-            toUpdate.setGenre(genre);
-        }
-        if (yearOfRelease != null) {
-            toUpdate.setYearOfRelease(yearOfRelease);
-        }
-        return this.repo.save(toUpdate);
+        return this.get(id);
     }
 
     @Override

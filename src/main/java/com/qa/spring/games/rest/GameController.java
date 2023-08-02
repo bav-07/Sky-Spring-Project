@@ -1,6 +1,7 @@
 package com.qa.spring.games.rest;
 
 import com.qa.spring.games.domain.Game;
+import com.qa.spring.games.exceptions.GameNotFoundException;
 import com.qa.spring.games.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
@@ -78,7 +80,7 @@ public class GameController {
         if (updated != null) {
             return new ResponseEntity<>(service.update(id, name, genre, yearOfRelease), HttpStatus.OK);
         }
-        return ResponseEntity.badRequest().build();
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/remove/{id}")
