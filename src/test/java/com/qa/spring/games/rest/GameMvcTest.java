@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.querydsl.binding.MultiValueBinding;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -32,6 +33,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // loads the application context
 @AutoConfigureMockMvc // create a MockMVC bean
 @Sql(scripts = {"classpath:game-schema.sql", "classpath:game-data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@ActiveProfiles("test")
 public class GameMvcTest {
 
     @Autowired // tells spring to inject the MockMVC bean into this class
