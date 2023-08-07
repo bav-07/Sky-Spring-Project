@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Entity
 public class Game {
@@ -84,5 +85,18 @@ public class Game {
                 ", genre='" + genre + '\'' +
                 ", yearOfRelease=" + yearOfRelease +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return Objects.equals(id, game.id) && Objects.equals(name, game.name) && Objects.equals(genre, game.genre) && Objects.equals(yearOfRelease, game.yearOfRelease);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, genre, yearOfRelease);
     }
 }
